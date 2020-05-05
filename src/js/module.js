@@ -1,16 +1,15 @@
-{
-  const form = document.querySelector('.createTaskForm');
+const form = document.querySelector('.createTaskForm');
 
-  form.onsubmit = (event) => {
-    event.preventDefault();
+form.onsubmit = (event) => {
+  event.preventDefault();
 
-    const formData = new FormData(event.target);
-    const task = formData.get('task');
+  const formData = new FormData(event.target);
+  const task = formData.get('task');
 
-    addTask(task);
-  };
+  addTask(task);
+};
 
-  const getUpdatedTemplate = (task) => `
+const getUpdatedTemplate = (task) => `
   <div class="content">
     <button class="checkbox"></button>
     <input class="taskInput" type="text" value="${task}" disabled />
@@ -22,28 +21,43 @@
   </div>
   `;
 
-  const addFavoriteHandler = (taskDOM) => {
-    starDOM = taskDOM.querySelector('.star');
+const addFavoriteHandler = (taskDOM) => {
+  const starDOM = taskDOM.querySelector('.star');
 
-    starDOM.onclick = () => {
-      starDOM.classList.toggle('selected');
-    };
+  starDOM.onclick = () => {
+    starDOM.classList.toggle('selected');
   };
+};
 
-  const addRemoveHandler = (taskDOM) => {
-    removeDOM = taskDOM.querySelector('.remove');
+const addEditHandler = (taskDOM) => {
+  const editDOM = taskDOM.querySelector('.edit');
 
-    removeDOM.onclick = () => taskDOM.remove();
+  editDOM.onclick = () => {
+    const taskInputDOM = taskDOM.querySelector('.taskInput');
+    const isDisabled = taskInputDOM.getAttribute('disabled') === null;
+
+    if (isDisabled) {
+      taskInputDOM.setAttribute('disabled', true);
+    } else {
+      taskInputDOM.removeAttribute('disabled');
+    }
   };
+};
 
-  const addTask = (task) => {
-    const tasksDOM = document.querySelector('.tasks');
-    const taskDOM = document.createElement('li');
+const addRemoveHandler = (taskDOM) => {
+  const removeDOM = taskDOM.querySelector('.remove');
 
-    taskDOM.innerHTML = getUpdatedTemplate(task);
-    tasksDOM.prepend(taskDOM);
+  removeDOM.onclick = () => taskDOM.remove();
+};
 
-    addRemoveHandler(taskDOM);
-    addFavoriteHandler(taskDOM);
-  };
-}
+const addTask = (task) => {
+  const tasksDOM = document.querySelector('.tasks');
+  const taskDOM = document.createElement('li');
+
+  taskDOM.innerHTML = getUpdatedTemplate(task);
+  tasksDOM.prepend(taskDOM);
+
+  addFavoriteHandler(taskDOM);
+  addEditHandler(taskDOM);
+  addRemoveHandler(taskDOM);
+};
