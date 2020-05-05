@@ -22,6 +22,14 @@
   </div>
   `;
 
+  const addFavoriteHandler = (taskDOM) => {
+    starDOM = taskDOM.querySelector('.star');
+
+    starDOM.onclick = () => {
+      starDOM.classList.toggle('selected');
+    };
+  };
+
   const addRemoveHandler = (taskDOM) => {
     removeDOM = taskDOM.querySelector('.remove');
 
@@ -36,5 +44,6 @@
     tasksDOM.prepend(taskDOM);
 
     addRemoveHandler(taskDOM);
+    addFavoriteHandler(taskDOM);
   };
 }
