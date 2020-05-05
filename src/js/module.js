@@ -22,11 +22,19 @@
   </div>
   `;
 
+  const addRemoveHandler = (taskDOM) => {
+    removeDOM = taskDOM.querySelector('.remove');
+
+    removeDOM.onclick = () => taskDOM.remove();
+  };
+
   const addTask = (task) => {
     const tasksDOM = document.querySelector('.tasks');
     const taskDOM = document.createElement('li');
 
     taskDOM.innerHTML = getUpdatedTemplate(task);
     tasksDOM.prepend(taskDOM);
+
+    addRemoveHandler(taskDOM);
   };
 }
