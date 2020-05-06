@@ -136,6 +136,12 @@ main {
 
   display: flex;
   flex-direction: column;
+
+  overflow: scroll;
+}
+
+.scheduler__tasks-section::-webkit-scrollbar {
+  display: none;
 }
 
 .scheduler__tasks-list-header {

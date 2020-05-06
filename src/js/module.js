@@ -1,4 +1,4 @@
-const form = document.querySelector('.createTaskForm');
+const form = document.querySelector('.scheduler__task-form');
 
 form.onsubmit = (event) => {
   event.preventDefault();
@@ -7,22 +7,24 @@ form.onsubmit = (event) => {
   const task = formData.get('task');
 
   addTask(task);
+
+  form.reset();
 };
 
 const getUpdatedTemplate = (task) => `
-  <div class="content">
-    <button class="checkbox"></button>
-    <input class="taskInput" type="text" value="${task}" disabled />
+  <div class="tasks-list__task-content">
+    <button class="tasks-list__task-checkbox"></button>
+    <input class="tasks-list__task-name" type="text" value="${task}" disabled />
   </div>
-  <div class="actions">
-    <button class="star"></button>
-    <button class="edit"></button>
-    <button class="remove"></button>
+  <div class="tasks-list__task-actions">
+    <button class="tasks-list__task-star"></button>
+    <button class="tasks-list__task-edit"></button>
+    <button class="tasks-list__task-remove"></button>
   </div>
   `;
 
 const addFavoriteHandler = (taskDOM) => {
-  const starDOM = taskDOM.querySelector('.star');
+  const starDOM = taskDOM.querySelector('.tasks-list__task-star');
 
   starDOM.onclick = () => {
     starDOM.classList.toggle('selected');
@@ -30,10 +32,10 @@ const addFavoriteHandler = (taskDOM) => {
 };
 
 const addEditHandler = (taskDOM) => {
-  const editDOM = taskDOM.querySelector('.edit');
+  const editDOM = taskDOM.querySelector('.tasks-list__task-edit');
 
   editDOM.onclick = () => {
-    const taskInputDOM = taskDOM.querySelector('.taskInput');
+    const taskInputDOM = taskDOM.querySelector('.tasks-list__task-name');
     const isDisabled = taskInputDOM.getAttribute('disabled') === null;
 
     if (isDisabled) {
@@ -45,13 +47,13 @@ const addEditHandler = (taskDOM) => {
 };
 
 const addRemoveHandler = (taskDOM) => {
-  const removeDOM = taskDOM.querySelector('.remove');
+  const removeDOM = taskDOM.querySelector('.tasks-list__task-remove');
 
   removeDOM.onclick = () => taskDOM.remove();
 };
 
 const addTask = (task) => {
-  const tasksDOM = document.querySelector('.tasks');
+  const tasksDOM = document.querySelector('.tasks-list');
   const taskDOM = document.createElement('li');
 
   taskDOM.innerHTML = getUpdatedTemplate(task);
