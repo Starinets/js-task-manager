@@ -40,8 +40,10 @@ const addEditHandler = (taskDOM) => {
 
     if (isDisabled) {
       taskInputDOM.setAttribute('disabled', true);
+      editDOM.classList.remove("selected");
     } else {
       taskInputDOM.removeAttribute('disabled');
+      editDOM.classList.add('selected');
     }
   };
 };

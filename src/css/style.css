@@ -35,7 +35,7 @@ main {
   display: flex;
   flex-direction: column;
 
-  min-width: 320px;
+  min-width: 300px;
   width: 100%;
   height: 100%;
 
@@ -65,8 +65,10 @@ main {
 .scheduler__task-name {
   -webkit-appearance: none;
   /* ← Этот хак нужен сафари для работы (проблема со свойством height)... */
-  min-width: 100px;
-  flex-basis: 100%;
+  flex: 1 1 100px;
+
+  width: 100px;
+
   height: 42px;
 
   margin-bottom: 10px;
@@ -102,7 +104,7 @@ main {
 }
 
 .scheduler__create-task {
-  min-width: 100px;
+  flex: 1 1 100px;
   flex-basis: 100%;
   height: 42px;
 
@@ -210,12 +212,12 @@ main {
   align-items: center;
   justify-content: space-between;
 
-  height: 61px;
+  /* height: 61px; */
 
-  margin-bottom: 13px;
-  padding: 0 20px;
+  margin-bottom: 10px;
+  padding: 10px 10px;
 
-  background-color: #fff;
+  background-color: #2d313a;
 
   font-size: 20px;
   font-weight: 400;
@@ -226,22 +228,48 @@ main {
 
 .task.completed {
   color: #656565;
-  background-color: #e4e4e4;
+  background-color: #ee3838;
+}
+
+.task__name {
+  flex: 1 1 auto;
+
+  width: 50px;
+
+  padding: 10px 10px;
+
+  color: #fff;
+  background-color: #3f4554;
+
+  font-size: 18px;
+
+  border-radius: 5px;
+  border: 1px solid #069df9;
+
+  transition: 0.3s;
+}
+
+.task__name:disabled {
+  color: #6d7582;
+  background-color: #2d313a;
+
+  border: 1px solid transparent;
 }
 
 .task.completed .task__name {
   background-color: #e4e4e4;
 }
-
-.task svg {
-  cursor: pointer;
-}
-
+  
 .task__content {
   display: flex;
   align-items: center;
 
-  width: 83%;
+  flex: 1 1 auto;
+}
+
+
+.task__actions {
+  flex: 0 0 auto;
 }
 
 .task__checkbox {
@@ -250,21 +278,22 @@ main {
   width: 19px;
   height: 19px;
 
-  margin-right: 20px;
+  margin-right: 10px;
 
   background-image: url('../images/checkbox.svg');
   background-color: transparent;
   background-size: cover;
 
   border: none;
+  cursor: pointer;
+}
+
+.task__checkbox:hover {
+  background-image: url('../images/checkboxHover.svg');
 }
 
 .task__checkbox.selected {
   background-image: url('../images/checkboxSelected.svg');
-}
-
-.task__name:not([disabled]) {
-  border-color: #3b8ef3;
 }
 
 .task__star {
@@ -273,13 +302,15 @@ main {
   width: 19px;
   height: 19px;
 
-  margin-right: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
 
   background-image: url('../images/star.svg');
   background-color: transparent;
   background-size: cover;
 
   border: none;
+  cursor: pointer;
 }
 
 .task__star:hover {
@@ -300,17 +331,21 @@ main {
   width: 19px;
   height: 19px;
 
-  margin-right: 20px;
+  margin-right: 10px;
 
   background-image: url('../images/edit.svg');
   background-color: transparent;
   background-size: cover;
 
   border: none;
+  cursor: pointer;
 }
 
-.task__edit.selected,
-.task__edit:hover {
+.task__edit.selected {
+  background-image: url('../images/editSelected.svg');
+}
+
+.task__edit:hover:not(.selected) {
   background-image: url('../images/editHover.svg');
 }
 
@@ -325,10 +360,31 @@ main {
   background-size: cover;
 
   border: none;
+  cursor: pointer;
 }
 
 .task__remove:hover {
   background-image: url('../images/removeHover.svg');
+}
+
+@media (min-width: 450px) {
+  .task {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .task__checkbox {
+    margin-right: 20px;
+  }
+
+  .task__star {
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+
+  .task__edit {
+    margin-right: 20px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -355,20 +411,6 @@ main {
 
   .scheduler__select-all {
     font-size: 18px;
-  }
-
-  .task {
-    padding: 10px 5px;
-    height: auto;
-  }
-
-  .task__content {
-    width: 95%;
-  }
-
-  .task__actions {
-    margin-bottom: 7px;
-    align-self: flex-end;
   }
 }
 
